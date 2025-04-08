@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback dégustation de bière</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="images_display"></div>
+        <div id="feedback-form" class="card">
+            <div class="card-content">
+                <div class="content">
+                    <h1 class="title">Donne ton avis</h1>
+                    <form onsubmit="submitFeedback(event)">
+                        <div class="field">
+                            <label class="label" for="name">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" id="name" name="name" placeholder="Entrez votre nom">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="beer">Quelle bière ?</label>
+                            <div class="select full-width">
+                                <select id="beer" name="beer" class="full-width" onchange="updateBeerLabels()">
+                                    <option value="yin">Yin - 2024</option>
+                                    <option value="yang">Yang - 2024</option>
+                                    <option value="exp-framboisade" selected>Exp. Framboisade -
+                                        2025
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="comment">Commentaires à la dégustation</label>
+                            <div class="control">
+                                <textarea class="textarea" id="comment" name="comment" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="field" style="display: flex; justify-content: center;">
+                            <button class="button is-primary full-width" type="submit">Envoyer mon
+                                feedback</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const label_images = {
+        "yin": ["yin", "yinyang-back"],
+        "yang": ["yang", "yinyang-back"],
+        "exp-framboisade": ["exp-framboisade"],
+    }
+
+    function updateBeerLabels() {
+        const select = document.getElementById('beer');
+        const selectedOption = select.options[select.selectedIndex];
+
+        let images_display = document.getElementById('images_display');
+
+        images_display.innerHTML = "";
+        for (const image of label_images[selectedOption.value]) {
+            const figure = document.createElement('figure');
+            figure.className = "image";
+            const img = document.createElement('img');
+            img.src = `images/${image}.png`;
+            img.alt = image;
+            figure.appendChild(img);
+            images_display.appendChild(figure);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        updateBeerLabels();
+    });
+
+    async function submitFeedback(event) {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
+        const { createClient } = supabase;
+        const supabaseClient = createClient('https://sdfrdiftekdgaeticqsx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkZnJkaWZ0ZWtkZ2FldGljcXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMjM2NDIsImV4cCI6MjA1OTU5OTY0Mn0.c2MPPnLxaL-6aYnyYAGVlmQ4l4_a2TqFC-nU_dGU0Y0')
+        const { error } = await supabaseClient
+            .from('feedback')
+            .insert({ author: event.target.name.value, comment: event.target.comment.value, beer: event.target.beer.value })
+        if (error) {
+            console.error('Error submitting feedback:', error);
+            alert('Une erreur est survenue lors de l\'envoi de votre feedback. Veuillez réessayer.');
+        } else {
+            window.location.href = 'thanks.html';
+        }
+    }
+</script>
+
+</html>

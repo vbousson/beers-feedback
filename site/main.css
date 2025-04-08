@@ -1,0 +1,60 @@
+:root {
+  --bulma-card-shadow: rgba(255, 255, 255, 0.5) 0px 0px 16px 4px,
+    rgba(255, 255, 255, 0.02) 0px 0px 0px 1px;
+}
+
+html {
+  overflow: auto;
+
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url('images/exp-framboisade-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 1rem;
+
+  --bulma-card-shadow: rgba(255, 255, 255, 0.5) 0px 0px 16px 4px,
+    rgba(255, 255, 255, 0.02) 0px 0px 0px 1px;
+}
+
+#main-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#images_display {
+  max-width: 25rem;
+
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+
+  figure {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--bulma-card-shadow);
+    ;
+  }
+}
+
+
+textarea {
+  min-height: 5rem;
+}
+
+#feedback-form {
+  min-width: 25rem;
+  max-width: 100%
+}
+
+.full-width {
+  width: 100%;
+}
