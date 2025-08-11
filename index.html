@@ -30,7 +30,10 @@
                                 <select id="beer" name="beer" class="full-width" onchange="updateBeerLabels()">
                                     <option value="yin">Yin - 2024</option>
                                     <option value="yang">Yang - 2024</option>
-                                    <option value="exp-framboisade" selected>Exp. Framboisade -
+                                    <option value="exp-framboisade">Exp. Framboisade -
+                                        2025
+                                    </option>
+                                    <option value="mariage-hortense" selected>Mariage Hortense & Marcel -
                                         2025
                                     </option>
                                 </select>
@@ -58,6 +61,13 @@
         "yin": ["yin", "yinyang-back"],
         "yang": ["yang", "yinyang-back"],
         "exp-framboisade": ["exp-framboisade"],
+        "mariage-hortense": ["mariage-hortense"],
+    }
+    const backgrounds = {
+        "yin": "yinyang-bg.png",
+        "yang": "yinyang-bg.png",
+        "exp-framboisade": "exp-framboisade-bg.png",
+        "mariage-hortense": "mariage-hortense-bg.png",
     }
 
     function updateBeerLabels() {
@@ -76,6 +86,9 @@
             figure.appendChild(img);
             images_display.appendChild(figure);
         }
+
+
+        document.body.style.backgroundImage = `url('images/${backgrounds[selectedOption.value]}')`;
     }
 
     document.addEventListener('DOMContentLoaded', async () => {

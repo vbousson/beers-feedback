@@ -9,12 +9,13 @@ html {
 }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url('images/exp-framboisade-bg.png');
+  background-image: url('images/mariage-hortense-bg.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: lighten;
   min-height: 100vh;
   padding: 1rem;
 
@@ -57,4 +58,9 @@ textarea {
 
 .full-width {
   width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 0 !important;
 }
